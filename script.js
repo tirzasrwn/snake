@@ -167,10 +167,10 @@ function gameOver() {
   }
   ctx.fillStyle = "#DC8686";
   ctx.font = "50px Arial";
-  ctx.fillText("Game Over", canvas.width / 4, canvas.height / 2);
+  ctx.fillText("Game Over", canvas.width / 5, canvas.height / 2);
   ctx.fillText(
     "Best Score: " + bestScore,
-    canvas.width / 4,
+    canvas.width / 3,
     canvas.height / 2 + 50,
   );
 }

@@ -41,4 +41,6 @@ button:hover {
 
 .score-table {
   font-size: 25px; /* Memperbesar ukuran teks tabel */
+  background-color: #f0dbaf;
+  border-radius: 5px; /* Membuat tombol berbentuk bulat */
 }
