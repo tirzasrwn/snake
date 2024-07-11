@@ -5,7 +5,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: #f0f0f0;
+  background-color: #b06161; /* Warna latar belakang yang Anda pilih */
   font-family: Arial, sans-serif;
 }
 
@@ -14,11 +14,14 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px solid #333;
+  border: 2px solid #b06161; /* Warna border yang Anda pilih */
+  border-radius: 10px; /* Membuat border berbentuk bulat */
+  margin-bottom: 20px; /* Jarak antara kotak utama permainan dan skor */
 }
 
 canvas {
-  background-color: #000;
+  background-color: #f0dbaf; /* Warna latar belakang kanvas yang Anda pilih */
+  border-radius: 10px; /* Membuat kanvas berbentuk bulat */
 }
 
 button {
@@ -27,10 +30,15 @@ button {
   font-size: 16px;
   cursor: pointer;
   border: none;
-  background-color: #333;
-  color: #fff;
+  background-color: #f0dbaf; /* Warna tombol yang Anda pilih */
+  color: black; /* Warna teks tombol */
+  border-radius: 5px; /* Membuat tombol berbentuk bulat */
 }
 
 button:hover {
-  background-color: #555;
+  background-color: #7ed7c1; /* Warna tombol saat dihover */
+}
+
+.score-table {
+  font-size: 25px; /* Memperbesar ukuran teks tabel */
 }

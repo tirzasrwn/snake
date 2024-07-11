@@ -35,6 +35,9 @@ let direction;
 let score;
 
 /** @type {number} */
+let bestScore = localStorage.getItem("bestScore") || 0;
+
+/** @type {number} */
 let game;
 
 /**
@@ -82,15 +85,15 @@ function drawGame() {
 
   // Draw the snake
   for (let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = i === 0 ? "green" : "white";
+    ctx.fillStyle = i === 0 ? "#7ED7C1" : "white";
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
-    ctx.strokeStyle = "red";
+    ctx.strokeStyle = "#B06161";
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
   }
 
   // Draw the food
-  ctx.fillStyle = "red";
+  ctx.fillStyle = "#B06161";
   ctx.fillRect(food.x, food.y, box, box);
 
   // Get the current head position
@@ -133,10 +136,9 @@ function drawGame() {
 
   snake.unshift(newHead);
 
-  // Display the score
-  ctx.fillStyle = "white";
-  ctx.font = "45px Changa one";
-  ctx.fillText(score, 2 * box, 1.6 * box);
+  // Display the score and best score
+  document.getElementById("score").innerHTML = score;
+  document.getElementById("bestScore").innerHTML = bestScore;
 }
 
 /**
@@ -159,9 +161,18 @@ function collision(head, array) {
  */
 function gameOver() {
   clearInterval(game);
-  ctx.fillStyle = "red";
+  if (score > bestScore) {
+    bestScore = score;
+    localStorage.setItem("bestScore", bestScore);
+  }
+  ctx.fillStyle = "#DC8686";
   ctx.font = "50px Arial";
   ctx.fillText("Game Over", canvas.width / 4, canvas.height / 2);
+  ctx.fillText(
+    "Best Score: " + bestScore,
+    canvas.width / 4,
+    canvas.height / 2 + 50,
+  );
 }
 
 document.addEventListener("keydown", changeDirection);
