@@ -1,4 +1,4 @@
-Game Snake
+**Game Snake**
 
 Game snake ini dapat diakses melalui link **https://tirzasrwn.github.io/snake/** dari browser PC/Laptop. Berikut adalah beberapa penjelasan fitur yang dimiliki game snake tersebut:
 ## 1. Kontrol Ular
