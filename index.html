@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Snake Game</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" href="/snake/style.css" />
+    <link rel="manifest" href="/snake/manifest.json" />
+    <base href="/snake/" />
   </head>
   <body>
     <table style="margin: 20px" class="score-table">
@@ -27,7 +28,7 @@
         <td id="bestScore">0</td>
       </tr>
     </table>
-    <script src="script.js"></script>
+    <script src="/snake/script.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker
