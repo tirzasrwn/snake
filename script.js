@@ -1,29 +1,23 @@
 let deferredPrompt;
 
-window.addEventListener("beforeinstallprompt", (e) => {
-  // Prevent the mini-infobar from appearing on mobile
-  e.preventDefault();
-  // Stash the event so it can be triggered later
-  deferredPrompt = e;
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+  document.getElementById("installButton").style.display = "block";
+});
 
-  const installButton = document.createElement("button");
-  installButton.textContent = "Install App";
-  installButton.style =
-    "margin-top: 10px; padding: 10px; cursor: pointer; background: #7ed7c1; border: none; border-radius: 5px;";
-
-  document.body.appendChild(installButton);
-
-  installButton.addEventListener("click", () => {
+document.getElementById("installButton").addEventListener("click", async () => {
+  if (deferredPrompt) {
     deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === "accepted") {
-        console.log("User accepted the install prompt");
-      } else {
-        console.log("User dismissed the install prompt");
-      }
-      deferredPrompt = null;
-    });
-  });
+    const { outcome } = await deferredPrompt.userChoice;
+    console.log(`User's choice: ${outcome}`);
+    deferredPrompt = null;
+    document.getElementById("installButton").style.display = "none";
+  }
+});
+
+window.addEventListener("appinstalled", () => {
+  console.log("PWA installed successfully!");
 });
 
 /** @type {HTMLCanvasElement} */
