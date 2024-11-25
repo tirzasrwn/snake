@@ -1,3 +1,31 @@
+let deferredPrompt;
+
+window.addEventListener("beforeinstallprompt", (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later
+  deferredPrompt = e;
+
+  const installButton = document.createElement("button");
+  installButton.textContent = "Install App";
+  installButton.style =
+    "margin-top: 10px; padding: 10px; cursor: pointer; background: #7ed7c1; border: none; border-radius: 5px;";
+
+  document.body.appendChild(installButton);
+
+  installButton.addEventListener("click", () => {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the install prompt");
+      } else {
+        console.log("User dismissed the install prompt");
+      }
+      deferredPrompt = null;
+    });
+  });
+});
+
 /** @type {HTMLCanvasElement} */
 const canvas = document.getElementById("gameCanvas");
 
