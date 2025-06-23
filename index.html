@@ -10,26 +10,38 @@
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body>
-    <table style="margin: 20px" class="score-table">
-      <tr>
-        <td>Snake Game</td>
-      </tr>
-    </table>
-    <div class="game-container">
-      <canvas id="gameCanvas" width="854" height="480"></canvas>
-      <button id="restartButton">Restart</button>
-      <button id="installButton" style="display: none">Install App</button>
+    <div class="container">
+      <h1>Snake Game</h1>
+
+      <div class="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="controls">
+          <button id="restartButton">Restart</button>
+          <button id="installButton" style="display: none">Install App</button>
+        </div>
+
+        <div class="mobile-controls">
+          <button id="upButton" class="control-button">↑</button>
+          <div>
+            <button id="leftButton" class="control-button">←</button>
+            <button id="rightButton" class="control-button">→</button>
+          </div>
+          <button id="downButton" class="control-button">↓</button>
+        </div>
+      </div>
+
+      <div class="score-container">
+        <div class="score-item">
+          <span>Score:</span>
+          <span id="score">0</span>
+        </div>
+        <div class="score-item">
+          <span>Best Score:</span>
+          <span id="bestScore">0</span>
+        </div>
+      </div>
     </div>
-    <table class="score-table">
-      <tr>
-        <td>Score:</td>
-        <td id="score">0</td>
-      </tr>
-      <tr>
-        <td>Best Score:</td>
-        <td id="bestScore">0</td>
-      </tr>
-    </table>
+
     <script src="/script.js"></script>
     <script>
       if ("serviceWorker" in navigator) {

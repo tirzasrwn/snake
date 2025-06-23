@@ -20,52 +20,48 @@ window.addEventListener("appinstalled", () => {
   console.log("PWA installed successfully!");
 });
 
-/** @type {HTMLCanvasElement} */
+// Responsive canvas setup
 const canvas = document.getElementById("gameCanvas");
-
-/** @type {CanvasRenderingContext2D} */
 const ctx = canvas.getContext("2d");
-
-/** @type {HTMLButtonElement} */
 const restartButton = document.getElementById("restartButton");
 
-/** @type {number} */
-const box = 20;
+// Set initial canvas size based on device
+function setupCanvas() {
+  const maxWidth = Math.min(window.innerWidth * 0.9, 854);
+  const maxHeight = Math.min(window.innerHeight * 0.6, 480);
 
-/** @type {number} */
-const rows = canvas.height / box;
+  // Maintain 16:9 aspect ratio
+  const aspectRatio = 16 / 9;
+  let canvasWidth = maxWidth;
+  let canvasHeight = canvasWidth / aspectRatio;
 
-/** @type {number} */
-const cols = canvas.width / box;
+  if (canvasHeight > maxHeight) {
+    canvasHeight = maxHeight;
+    canvasWidth = canvasHeight * aspectRatio;
+  }
 
-/**
- * @typedef {Object} SnakePart
- * @property {number} x - The x-coordinate of the snake part.
- * @property {number} y - The y-coordinate of the snake part.
- */
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
 
-/** @type {SnakePart[]} */
+  // Adjust box size based on canvas dimensions
+  box = Math.max(10, Math.floor(Math.min(canvasWidth, canvasHeight) / 30));
+}
+
+let box;
+let rows, cols;
 let snake;
-
-/** @type {SnakePart} */
 let food;
-
-/** @type {string} */
 let direction;
-
-/** @type {number} */
 let score;
-
-/** @type {number} */
 let bestScore = localStorage.getItem("bestScore") || 0;
-
-/** @type {number} */
 let game;
 
-/**
- * Initializes the game by setting up the snake, food, score, and starting the game loop.
- */
 function initializeGame() {
+  setupCanvas();
+
+  rows = Math.floor(canvas.height / box);
+  cols = Math.floor(canvas.width / box);
+
   snake = [];
   for (let i = 0; i < 3; i++) {
     snake.push({ x: (10 - i) * box, y: 10 * box });
@@ -83,10 +79,6 @@ function initializeGame() {
   game = setInterval(drawGame, 100);
 }
 
-/**
- * Changes the direction of the snake based on keyboard input.
- * @param {KeyboardEvent} event - The keyboard event triggered by pressing a key.
- */
 function changeDirection(event) {
   if (event.keyCode == 37 && direction != "RIGHT") {
     direction = "LEFT";
@@ -99,9 +91,6 @@ function changeDirection(event) {
   }
 }
 
-/**
- * Draws the game elements (snake, food, score) on the canvas and updates the game state.
- */
 function drawGame() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -163,12 +152,6 @@ function drawGame() {
   document.getElementById("bestScore").innerHTML = bestScore;
 }
 
-/**
- * Checks for collision between the snake's head and its body.
- * @param {SnakePart} head - The head of the snake.
- * @param {SnakePart[]} array - The body of the snake.
- * @returns {boolean} - True if there is a collision, otherwise false.
- */
 function collision(head, array) {
   for (let i = 0; i < array.length; i++) {
     if (head.x == array[i].x && head.y == array[i].y) {
@@ -178,26 +161,49 @@ function collision(head, array) {
   return false;
 }
 
-/**
- * Displays the game over message and stops the game loop.
- */
 function gameOver() {
   clearInterval(game);
   if (score > bestScore) {
     bestScore = score;
     localStorage.setItem("bestScore", bestScore);
   }
+
+  ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
   ctx.fillStyle = "#DC8686";
-  ctx.font = "50px Arial";
-  ctx.fillText("Game Over", canvas.width / 5, canvas.height / 2);
+  ctx.font = `bold ${Math.min(50, canvas.width / 10)}px Arial`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  ctx.fillText("Game Over", canvas.width / 2, canvas.height / 2 - 30);
   ctx.fillText(
-    "Best Score: " + bestScore,
-    canvas.width / 3,
-    canvas.height / 2 + 50,
+    `Score: ${score} | Best: ${bestScore}`,
+    canvas.width / 2,
+    canvas.height / 2 + 30,
   );
 }
 
+// Mobile control handlers
+document.getElementById("upButton").addEventListener("click", () => {
+  if (direction != "DOWN") direction = "UP";
+});
+
+document.getElementById("leftButton").addEventListener("click", () => {
+  if (direction != "RIGHT") direction = "LEFT";
+});
+
+document.getElementById("rightButton").addEventListener("click", () => {
+  if (direction != "LEFT") direction = "RIGHT";
+});
+
+document.getElementById("downButton").addEventListener("click", () => {
+  if (direction != "UP") direction = "DOWN";
+});
+
+// Initialize the game
 document.addEventListener("keydown", changeDirection);
 restartButton.addEventListener("click", initializeGame);
+window.addEventListener("resize", initializeGame);
 
 initializeGame();
