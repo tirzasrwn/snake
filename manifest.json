@@ -2,7 +2,7 @@
   "name": "Snake Game",
   "short_name": "Snake",
   "description": "A fun snake game that works offline!",
-  "start_url": "/snake/index.html",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#b06161",
   "theme_color": "#b06161",

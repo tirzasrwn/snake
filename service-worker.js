@@ -1,12 +1,12 @@
 const CACHE_NAME = "snake-game-cache-v1";
 const urlsToCache = [
-  "/snake/",
-  "/snake/index.html",
-  "/snake/style.css",
-  "/snake/script.js",
-  "/snake/manifest.json",
-  "/snake/icons/icon-192x192.png",
-  "/snake/icons/icon-512x512.png",
+  "/",
+  "/index.html",
+  "/style.css",
+  "/script.js",
+  "/manifest.json",
+  "/icons/icon-192x192.png",
+  "/icons/icon-512x512.png",
 ];
 
 self.addEventListener("install", (event) => {
