@@ -1,10 +1,38 @@
 /* Base styles */
 :root {
-  --primary-color: #b06161;
-  --secondary-color: #f0dbaf;
-  --accent-color: #7ed7c1;
-  --danger-color: #dc8686;
-  --text-color: #333;
+  /* Light theme (Catppuccin Latte) */
+  --primary: #b06161;
+  --secondary: #f0dbaf;
+  --accent: #7ed7c1;
+  --danger: #dc8686;
+  --text: #4c4f69;
+  --button-text: #333;
+  --canvas-bg: #fff;
+  --snake-head: #7ED7C1;
+  --snake-body: white;
+  --snake-border: #B06161;
+  --food: #B06161;
+  --score-bg: #f0dbaf;
+  --game-over-text: #dc8686;
+  --overlay: rgba(0, 0, 0, 0.7);
+}
+
+.dark-theme {
+  /* Dark theme (Catppuccin Macchiato) */
+  --primary: #24273a;
+  --secondary: #1e2030;
+  --accent: #8aadf4;
+  --danger: #ed8796;
+  --text: #cad3f5;
+  --button-text: #181926;
+  --canvas-bg: #181926;
+  --snake-head: #8bd5ca;
+  --snake-body: #363a4f;
+  --snake-border: #b7bdf8;
+  --food: #f5a97f;
+  --score-bg: #1e2030;
+  --game-over-text: #ed8796;
+  --overlay: rgba(0, 0, 0, 0.7);
 }
 
 * {
@@ -18,9 +46,11 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: var(--primary-color);
+  background-color: var(--primary);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
+  color: var(--text);
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .container {
@@ -30,6 +60,7 @@ body {
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  position: relative;
 }
 
 h1 {
@@ -45,17 +76,19 @@ h1 {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-color: var(--secondary-color);
+  background-color: var(--secondary);
   border-radius: 15px;
   padding: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
 }
 
 canvas {
-  background-color: #fff;
+  background-color: var(--canvas-bg);
   border-radius: 8px;
   display: block;
   max-width: 100%;
+  transition: background-color 0.3s;
 }
 
 .controls {
@@ -71,8 +104,8 @@ button {
   font-size: 1rem;
   cursor: pointer;
   border: none;
-  background-color: var(--accent-color);
-  color: var(--text-color);
+  background-color: var(--accent);
+  color: var(--button-text);
   border-radius: 8px;
   font-weight: bold;
   transition: all 0.2s;
@@ -93,10 +126,11 @@ button:active {
   justify-content: center;
   gap: 30px;
   width: 100%;
-  background-color: var(--secondary-color);
+  background-color: var(--score-bg);
   border-radius: 15px;
   padding: 15px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
 }
 
 .score-item {
@@ -105,7 +139,8 @@ button:active {
   align-items: center;
   font-size: 1.4rem;
   font-weight: bold;
-  color: var(--text-color);
+  color: var(--text);
+  transition: color 0.3s;
 }
 
 .score-item span:first-child {
@@ -136,9 +171,21 @@ button:active {
   align-items: center;
   justify-content: center;
   border-radius: 50%;
+  background-color: var(--accent);
+  color: var(--button-text);
 }
 
-/* Media queries for responsiveness */
+/* Theme toggle button */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 20px;
+  z-index: 10;
+}
+
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem;
@@ -165,16 +212,4 @@ button:active {
   }
 
   .control-button {
-    width: 60px;
-    height: 60px;
-    font-size: 1.8rem;
-  }
-
-  .score-item {
-    font-size: 1.2rem;
-  }
-
-  .score-item span:first-child {
-    font-size: 1rem;
-  }
-}
+    width: 60px
