@@ -1,4 +1,3 @@
-// No changes needed for service worker
 const CACHE_NAME = "snake-game-cache-v1";
 const urlsToCache = [
   "/",

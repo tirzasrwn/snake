@@ -56,6 +56,50 @@ let score;
 let bestScore = localStorage.getItem("bestScore") || 0;
 let game;
 
+// Theme management
+let darkMode = false;
+let snakeHeadColor, snakeBodyColor, snakeBorderColor, foodColor, gameOverTextColor;
+
+function loadTheme() {
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    darkMode = savedTheme === 'dark';
+  } else {
+    darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  applyTheme();
+}
+
+function applyTheme() {
+  if (darkMode) {
+    document.body.classList.add('dark-theme');
+    document.getElementById('themeToggle').textContent = '☀️ Light Mode';
+    
+    // Set dark theme colors
+    snakeHeadColor = '#8bd5ca';
+    snakeBodyColor = '#363a4f';
+    snakeBorderColor = '#b7bdf8';
+    foodColor = '#f5a97f';
+    gameOverTextColor = '#ed8796';
+  } else {
+    document.body.classList.remove('dark-theme');
+    document.getElementById('themeToggle').textContent = '🌙 Dark Mode';
+    
+    // Set light theme colors
+    snakeHeadColor = '#7ED7C1';
+    snakeBodyColor = 'white';
+    snakeBorderColor = '#B06161';
+    foodColor = '#B06161';
+    gameOverTextColor = '#DC8686';
+  }
+}
+
+function toggleTheme() {
+  darkMode = !darkMode;
+  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  applyTheme();
+}
+
 function initializeGame() {
   setupCanvas();
 
@@ -96,15 +140,15 @@ function drawGame() {
 
   // Draw the snake
   for (let i = 0; i < snake.length; i++) {
-    ctx.fillStyle = i === 0 ? "#7ED7C1" : "white";
+    ctx.fillStyle = i === 0 ? snakeHeadColor : snakeBodyColor;
     ctx.fillRect(snake[i].x, snake[i].y, box, box);
 
-    ctx.strokeStyle = "#B06161";
+    ctx.strokeStyle = snakeBorderColor;
     ctx.strokeRect(snake[i].x, snake[i].y, box, box);
   }
 
   // Draw the food
-  ctx.fillStyle = "#B06161";
+  ctx.fillStyle = foodColor;
   ctx.fillRect(food.x, food.y, box, box);
 
   // Get the current head position
@@ -171,7 +215,7 @@ function gameOver() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.7)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "#DC8686";
+  ctx.fillStyle = gameOverTextColor;
   ctx.font = `bold ${Math.min(50, canvas.width / 10)}px Arial`;
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
@@ -206,4 +250,7 @@ document.addEventListener("keydown", changeDirection);
 restartButton.addEventListener("click", initializeGame);
 window.addEventListener("resize", initializeGame);
 
+// Theme toggle
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+loadTheme();
 initializeGame();
