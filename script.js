@@ -88,9 +88,9 @@ function applyTheme() {
     // Set light theme colors
     snakeHeadColor = '#7ED7C1';
     snakeBodyColor = 'white';
-    snakeBorderColor = '#B06161';
+    snakeBorderColor = '#B06161'; 
     foodColor = '#B06161';
-    gameOverTextColor = '#DC8686';
+    gameOverTextColor = '#dc8686';
   }
 }
 

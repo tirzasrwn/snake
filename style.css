@@ -8,10 +8,10 @@
   --text: #4c4f69;
   --button-text: #333;
   --canvas-bg: #fff;
-  --snake-head: #7ED7C1;
+  --snake-head: #7ed7c1;
   --snake-body: white;
-  --snake-border: #B06161;
-  --food: #B06161;
+  --snake-border: #b06161;
+  --food: #b06161;
   --score-bg: #f0dbaf;
   --game-over-text: #dc8686;
   --overlay: rgba(0, 0, 0, 0.7);
@@ -50,7 +50,9 @@ body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   padding: 20px;
   color: var(--text);
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .container {
@@ -175,17 +177,6 @@ button:active {
   color: var(--button-text);
 }
 
-/* Theme toggle button */
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  padding: 8px 16px;
-  font-size: 0.9rem;
-  border-radius: 20px;
-  z-index: 10;
-}
-
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem;
@@ -212,4 +203,18 @@ button:active {
   }
 
   .control-button {
-    width: 60px
+    width: 60px;
+  }
+}
+
+.theme-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  background-color: var(--score-bg);
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
