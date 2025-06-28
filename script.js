@@ -58,45 +58,49 @@ let game;
 
 // Theme management
 let darkMode = false;
-let snakeHeadColor, snakeBodyColor, snakeBorderColor, foodColor, gameOverTextColor;
+let snakeHeadColor,
+  snakeBodyColor,
+  snakeBorderColor,
+  foodColor,
+  gameOverTextColor;
 
 function loadTheme() {
-  const savedTheme = localStorage.getItem('theme');
+  const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
-    darkMode = savedTheme === 'dark';
+    darkMode = savedTheme === "dark";
   } else {
-    darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
   applyTheme();
 }
 
 function applyTheme() {
   if (darkMode) {
-    document.body.classList.add('dark-theme');
-    document.getElementById('themeToggle').textContent = '☀️ Light Mode';
-    
+    document.body.classList.add("dark-theme");
+    document.getElementById("themeToggle").textContent = "☀️ Light Mode";
+
     // Set dark theme colors
-    snakeHeadColor = '#8bd5ca';
-    snakeBodyColor = '#363a4f';
-    snakeBorderColor = '#b7bdf8';
-    foodColor = '#f5a97f';
-    gameOverTextColor = '#ed8796';
+    snakeHeadColor = "#8bd5ca";
+    snakeBodyColor = "#363a4f";
+    snakeBorderColor = "#b7bdf8";
+    foodColor = "#f5a97f";
+    gameOverTextColor = "#ed8796";
   } else {
-    document.body.classList.remove('dark-theme');
-    document.getElementById('themeToggle').textContent = '🌙 Dark Mode';
-    
+    document.body.classList.remove("dark-theme");
+    document.getElementById("themeToggle").textContent = "🌙 Dark Mode";
+
     // Set light theme colors
-    snakeHeadColor = '#7ED7C1';
-    snakeBodyColor = 'white';
-    snakeBorderColor = '#B06161'; 
-    foodColor = '#B06161';
-    gameOverTextColor = '#dc8686';
+    snakeHeadColor = "#7ED7C1";
+    snakeBodyColor = "white";
+    snakeBorderColor = "#B06161";
+    foodColor = "#B06161";
+    gameOverTextColor = "#dc8686";
   }
 }
 
 function toggleTheme() {
   darkMode = !darkMode;
-  localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+  localStorage.setItem("theme", darkMode ? "dark" : "light");
   applyTheme();
 }
 
@@ -248,9 +252,8 @@ document.getElementById("downButton").addEventListener("click", () => {
 // Initialize the game
 document.addEventListener("keydown", changeDirection);
 restartButton.addEventListener("click", initializeGame);
-window.addEventListener("resize", initializeGame);
 
 // Theme toggle
-document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+document.getElementById("themeToggle").addEventListener("click", toggleTheme);
 loadTheme();
 initializeGame();
