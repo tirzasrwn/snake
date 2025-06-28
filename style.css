@@ -166,15 +166,16 @@ button:active {
 }
 
 .control-button {
-  width: 70px;
-  height: 70px;
+  width: 70px; /* Set a fixed width */
+  height: 70px; /* Set a fixed height */
   font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 50%; /* Keep it circular */
   background-color: var(--accent);
   color: var(--button-text);
+  aspect-ratio: 1; /* Maintain a 1:1 aspect ratio */
 }
 
 @media (max-width: 768px) {
@@ -203,7 +204,8 @@ button:active {
   }
 
   .control-button {
-    width: 60px;
+    width: 60px; /* Adjust width for mobile */
+    height: 60px; /* Adjust height for mobile */
   }
 }
 
